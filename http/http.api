@@ -1,0 +1,27 @@
+syntax = "v1"
+
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+type (
+	// 定义登录接口的请求体
+	LoginReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	// 定义登录接口的响应体
+	LoginResp {
+		Token string `json:"token"`
+	}
+)
+service http-api {
+	@handler HttpHandler
+	get /from/:name(Request) returns (Response)
+
+	@handler UserLogin
+	post /user/login(LoginReq) returns (LoginResp)
+}

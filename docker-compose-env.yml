@@ -1,0 +1,84 @@
+version: '3'
+
+######## 项目依赖的环境，启动项目之前要先启动此环境 #######
+######## The environment that the project depends on, starting this environment before starting the project #######
+
+services:
+  ser_brl_mysql:
+    image: mysql/mysql-server:8.0.28
+    container_name: brl_mysql
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=C.UTF-8
+      - MYSQL_DATABASE=gin_vue_blog
+      - MYSQL_USER=db_blog_user
+      - MYSQL_PASSWORD=db_blog_pass
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 33069:3306
+    volumes:
+      # 数据挂载 - Data mounting
+      - ./data/mysql/data:/var/lib/mysql
+      # 日志
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配) 
+      # Modify the Mysql 8.0 default password strategy to the original strategy (MySQL8.0 to change its default strategy will cause the password to be unable to match)
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    privileged: true
+    restart: always
+    networks:
+      - blog_rpc_net
+
+  ser_brl_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: brl_phpmyadmin
+    restart: always
+    environment:
+      - PMA_ARBITRARY=0
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+      - PMA_HOST=ser_brl_mysql
+    ports:
+      - 8081:80
+    networks:
+      - blog_rpc_net
+    depends_on:
+      - ser_brl_mysql 
+      
+  #redis容器 - Redis container
+  ser_brl_redis:
+    image: redis:6.2.5
+    container_name: brl_redis
+    ports:
+      - 36379:6379
+    environment:
+      # 时区上海 - Time zone Shanghai (Change if needed)
+      TZ: Asia/Shanghai
+    volumes:
+      # 数据文件 - data files
+      - ./data/redis/data:/data:rw
+    command: "redis-server --requirepass G62m50oigInC30sf  --appendonly yes"
+    privileged: true
+    restart: always
+    networks:
+      - blog_rpc_net
+
+  ser_brl_etcd:
+    image: quay.io/coreos/etcd:v3.5.0
+    container_name: brl_etcd
+    command: /usr/local/bin/etcd
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    volumes:
+      - ./data/etcd:/etcd-data
+    networks:
+      - blog_rpc_net
+networks:
+  blog_rpc_net:
+    driver: bridge

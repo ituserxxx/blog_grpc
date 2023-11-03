@@ -1,0 +1,10 @@
+Name: http-api
+Host: 0.0.0.0
+Port: 8888
+
+#系统
+UserRpc:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: user.rpc
