@@ -15,7 +15,7 @@ services:
       - MYSQL_PASSWORD=db_blog_pass
       - MYSQL_ROOT_PASSWORD=root
     ports:
-      - 33069:3306
+      - 33061:3306
     volumes:
       # 数据挂载 - Data mounting
       - ./data/mysql/data:/var/lib/mysql
@@ -44,18 +44,18 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - PMA_HOST=ser_brl_mysql
     ports:
-      - 8081:80
+      - 33062:80
     networks:
       - blog_rpc_net
     depends_on:
       - ser_brl_mysql 
       
-  #redis容器 - Redis container
+  redis容器 - Redis container
   ser_brl_redis:
     image: redis:6.2.5
     container_name: brl_redis
     ports:
-      - 36379:6379
+      - 36371:6379
     environment:
       # 时区上海 - Time zone Shanghai (Change if needed)
       TZ: Asia/Shanghai

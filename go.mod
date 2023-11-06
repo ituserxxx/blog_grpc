@@ -1,6 +1,6 @@
 module brl
 
-go 1.21.3
+go 1.20
 
 require (
 	github.com/zeromicro/go-zero v1.6.0
