@@ -1,7 +1,12 @@
 #!/bin/sh
 
+
+mkdir -p ./data/mysql/data
+mkdir -p ./data/redis/
+mkdir -p ./data/etcd/data
+
 docker compose -f docker-compose-env.yml stop
-docker compose -f docker-compose-env.yml rm -y
+docker compose -f docker-compose-env.yml rm
 docker compose -f docker-compose-env.yml up -d
 
 

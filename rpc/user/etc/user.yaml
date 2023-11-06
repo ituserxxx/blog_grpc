@@ -2,5 +2,5 @@ Name: user.rpc
 ListenOn: 0.0.0.0:8180
 Etcd:
   Hosts:
-  - brl_etcd:2379
+  - localhost:2379
   Key: user.rpc
