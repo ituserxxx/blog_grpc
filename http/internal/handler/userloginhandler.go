@@ -2,11 +2,11 @@ package handler
 
 import (
 	"net/http"
-
+	"brl/http/internal/types"
+	"brl/http/internal/svc"
+	"brl/http/internal/logic"
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"http/internal/logic"
-	"http/internal/svc"
-	"http/internal/types"
+
 )
 
 func UserLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
@@ -18,7 +18,7 @@ func UserLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := logic.NewUserLoginLogic(r.Context(), svcCtx)
-		resp, err := l.UserLogin(&req)
+		resp, err := l.UserLogin(r.Context(),&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

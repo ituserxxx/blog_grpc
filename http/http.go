@@ -3,10 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"http/internal/config"
-	"http/internal/handler"
-	"http/internal/svc"
+	"brl/http/internal/config"
+	"brl/http/internal/handler"
+	"brl/http/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"

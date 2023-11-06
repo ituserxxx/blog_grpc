@@ -2,10 +2,9 @@ package logic
 
 import (
 	"context"
-
-	"http/internal/svc"
-	"http/internal/types"
-
+	"brl/rpc/user/userclient"
+	"brl/http/internal/types"
+	"brl/http/internal/svc"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -23,8 +22,8 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 	}
 }
 
-func (l *UserLoginLogic) UserLogin(req *types.LoginReq) (resp *types.LoginResp, err error) {
+func (l *UserLoginLogic) UserLogin(ctx context.Context,req *types.LoginReq) (resp *types.LoginResp, err error) {
 	// todo: add your logic here and delete this line
-	l.svcCtx.UserRpc.Ping()
+	l.svcCtx.UserRpc.Ping(ctx,&userclient.Request{})
 	return
 }

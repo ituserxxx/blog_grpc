@@ -6,7 +6,7 @@ package userclient
 import (
 	"context"
 
-	"user/user"
+	"brl/rpc/user/user"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
@@ -35,3 +35,4 @@ func (m *defaultUser) Ping(ctx context.Context, in *Request, opts ...grpc.CallOp
 	client := user.NewUserClient(m.cli.Conn())
 	return client.Ping(ctx, in, opts...)
 }
+ 

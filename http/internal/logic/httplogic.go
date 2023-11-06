@@ -3,9 +3,8 @@ package logic
 import (
 	"context"
 
-	"http/internal/svc"
-	"http/internal/types"
-
+	"brl/http/internal/types"
+	"brl/http/internal/svc"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -25,6 +24,6 @@ func NewHttpLogic(ctx context.Context, svcCtx *svc.ServiceContext) *HttpLogic {
 
 func (l *HttpLogic) Http(req *types.Request) (resp *types.Response, err error) {
 	// todo: add your logic here and delete this line
-	l.svcCtx.UserRpc.Ping()
+	// l.svcCtx.UserRpc.Ping()
 	return
 }

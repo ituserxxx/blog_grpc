@@ -6,5 +6,5 @@ Port: 8888
 UserRpc:
   Etcd:
     Hosts:
-      - localhost:2379
+      - brl_etcd:2379
     Key: user.rpc
