@@ -80,9 +80,9 @@ services:
     networks:
       - blog_rpc_net
 
-  ser_etcdkeeper:
+  ser_brl_etcdkeeper:
     image: deltaprojects/etcdkeeper
-    container_name: etcdkeeper
+    container_name: brl_etcdkeeper
     ports:
       - 23799:8080
     environment:

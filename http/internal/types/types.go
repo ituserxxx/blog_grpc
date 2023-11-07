@@ -17,3 +17,12 @@ type LoginReq struct {
 type LoginResp struct {
 	Token string `json:"token"`
 }
+
+type AddUserReq struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type AddUserResp struct {
+	Id int64 `json:"id"`
+}
