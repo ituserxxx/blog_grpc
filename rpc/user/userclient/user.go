@@ -13,14 +13,17 @@ import (
 )
 
 type (
-	AddUserReq  = user.AddUserReq
-	AddUserResp = user.AddUserResp
-	Request     = user.Request
-	Response    = user.Response
+	AddUserReq    = user.AddUserReq
+	AddUserResp   = user.AddUserResp
+	Request       = user.Request
+	Response      = user.Response
+	UserLoginReq  = user.UserLoginReq
+	UserLoginResp = user.UserLoginResp
 
 	User interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 		AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.CallOption) (*AddUserResp, error)
+		UserLogin(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
 	}
 
 	defaultUser struct {
@@ -42,4 +45,9 @@ func (m *defaultUser) Ping(ctx context.Context, in *Request, opts ...grpc.CallOp
 func (m *defaultUser) AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.CallOption) (*AddUserResp, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.AddUser(ctx, in, opts...)
+}
+
+func (m *defaultUser) UserLogin(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.UserLogin(ctx, in, opts...)
 }
