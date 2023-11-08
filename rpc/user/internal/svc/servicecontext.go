@@ -1,6 +1,9 @@
 package svc
 
-import "brl/rpc/user/internal/config"
+import (
+	"brl/rpc/user/internal/config"
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
+)
 import "brl/rpc/mysql/model/user"
 
 type ServiceContext struct {
