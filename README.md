@@ -7,8 +7,8 @@ cd http
 
 proto
 
-cd rpc
-// goctl rpc protoc user.proto --go_out=./ --go-grpc_out=./ --zrpc_out=.
+cd rpc/user
+goctl rpc protoc user.proto --go_out=./ --go-grpc_out=./ --zrpc_out=.
 
 
 model 

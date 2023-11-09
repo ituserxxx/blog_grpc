@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"brl/rpc/user/userclient"
 	"context"
 
 	"brl/http/internal/svc"
@@ -25,6 +26,12 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 
 func (l *AddUserLogic) AddUser(req *types.AddUserReq) (resp *types.AddUserResp, err error) {
 	// todo: add your logic here and delete this line
-	
-	return
+	id,err := l.svcCtx.UserRpc.AddUser(l.ctx,&userclient.AddUserReq{
+		Username: "root",
+		Password: "root",
+	})
+	if err != nil {
+		return nil,err
+	}
+	return &types.AddUserResp{Id: id.Id},nil
 }

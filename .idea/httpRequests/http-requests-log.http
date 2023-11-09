@@ -1,0 +1,132 @@
+POST http://127.0.0.1:8888/user/add
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2"
+}
+
+<> 2023-11-08T193741.500.txt
+
+###
+
+POST http://127.0.0.1:8888/user/add
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2"
+}
+
+<> 2023-11-08T193659.500.txt
+
+###
+
+POST http://127.0.0.1:8888/user/add
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2"
+}
+
+<> 2023-11-08T193626.500.txt
+
+###
+
+POST http://127.0.0.1:8888/user/add
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2"
+}
+
+<> 2023-11-08T193539.500.txt
+
+###
+
+POST http://127.0.0.1:8888/user/add
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2"
+}
+
+<> 2023-11-08T193045.200.json
+
+###
+
+POST http://127.0.0.1:8888/user/add
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2"
+}
+
+<> 2023-11-07T184833.200.json
+
+###
+
+POST http://127.0.0.1:8888/user/add
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2",
+}
+
+<> 2023-11-07T184824.400.txt
+
+###
+
+POST http://127.0.0.1:8888/user/login
+Content-Type: application/json
+
+{
+  "username":    "68619561969865916986",
+  "password":  "2",
+  "model": "WTU-300",
+  "fw_v":   "1.0.5",
+  "fw_t":   "1970-2-12 06:26:48",
+  "now":   ""
+}
+
+<> 2023-11-07T184756.200.json
+
+###
+
+POST http://127.0.0.1:8888/user/login
+Content-Type: application/json
+
+{
+  "id":    "68619561969865916986",
+  "type":  "2",
+  "model": "WTU-300",
+  "fw_v":   "1.0.5",
+  "fw_t":   "1970-2-12 06:26:48",
+  "now":   ""
+}
+
+<> 2023-11-07T184731.400.txt
+
+###
+
+GET http://127.0.0.1:8888/from/you
+Content-Type: application/json
+
+{
+  "id":    "68619561969865916986",
+  "type":  "2",
+  "model": "WTU-300",
+  "fw_v":   "1.0.5",
+  "fw_t":   "1970-2-12 06:26:48",
+  "now":   ""
+}
+
+<> 2023-11-07T184651.200.json
+
+###
+

@@ -1,10 +1,10 @@
 package logic
 
 import (
-	"context"
-
+	userModel "brl/rpc/mysql/model/user"
 	"brl/rpc/user/internal/svc"
 	"brl/rpc/user/user"
+	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +24,18 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 }
 
 func (l *AddUserLogic) AddUser(in *user.AddUserReq) (*user.AddUserResp, error) {
-	// todo: add your logic here and delete this line
-	
-	return &user.AddUserResp{}, nil
+	inres,err := l.svcCtx.BlogUserModel.Insert(l.ctx,&userModel.BlogUser{
+		Username:     "root",
+		Password:     "root",
+	})
+	if err != nil {
+		return nil,err
+	}
+	id,err := inres.LastInsertId()
+	if err != nil {
+		return nil,err
+	}
+	return &user.AddUserResp{
+		Id: id,
+	}, nil
 }
