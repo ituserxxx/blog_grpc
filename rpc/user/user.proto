@@ -11,7 +11,6 @@ message Response {
   string pong = 1;
 }
 
-
 message	AddUserReq {
   string username = 1;
   string password = 2;
@@ -27,10 +26,23 @@ message	UserLoginResp {
   int64 id = 1;
   string username = 2;
 }
+message UserUpdateNickNameReq{
+  int64 id = 1;
+  string nickname = 2;
+}
+message EmptyResp {
+
+}
+message UserDelReq{
+  int64 id = 1;
+}
+
 // goctl rpc protoc user.proto --go_out=./ --go-grpc_out=./ --zrpc_out=.
 
 service User {
   rpc Ping(Request) returns(Response);
   rpc AddUser(AddUserReq) returns(AddUserResp);
   rpc UserLogin(UserLoginReq) returns(UserLoginResp);
+  rpc UserUpdateNickName(UserUpdateNickNameReq) returns(EmptyResp);
+  rpc UserDel(UserDelReq) returns(EmptyResp);
 }

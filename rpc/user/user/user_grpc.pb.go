@@ -19,9 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_Ping_FullMethodName      = "/user.User/Ping"
-	User_AddUser_FullMethodName   = "/user.User/AddUser"
-	User_UserLogin_FullMethodName = "/user.User/UserLogin"
+	User_Ping_FullMethodName               = "/user.User/Ping"
+	User_AddUser_FullMethodName            = "/user.User/AddUser"
+	User_UserLogin_FullMethodName          = "/user.User/UserLogin"
+	User_UserUpdateNickName_FullMethodName = "/user.User/UserUpdateNickName"
+	User_UserDel_FullMethodName            = "/user.User/UserDel"
 )
 
 // UserClient is the client API for User service.
@@ -31,6 +33,8 @@ type UserClient interface {
 	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 	AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.CallOption) (*AddUserResp, error)
 	UserLogin(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
+	UserUpdateNickName(ctx context.Context, in *UserUpdateNickNameReq, opts ...grpc.CallOption) (*EmptyResp, error)
+	UserDel(ctx context.Context, in *UserDelReq, opts ...grpc.CallOption) (*EmptyResp, error)
 }
 
 type userClient struct {
@@ -68,6 +72,24 @@ func (c *userClient) UserLogin(ctx context.Context, in *UserLoginReq, opts ...gr
 	return out, nil
 }
 
+func (c *userClient) UserUpdateNickName(ctx context.Context, in *UserUpdateNickNameReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+	out := new(EmptyResp)
+	err := c.cc.Invoke(ctx, User_UserUpdateNickName_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) UserDel(ctx context.Context, in *UserDelReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+	out := new(EmptyResp)
+	err := c.cc.Invoke(ctx, User_UserDel_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -75,6 +97,8 @@ type UserServer interface {
 	Ping(context.Context, *Request) (*Response, error)
 	AddUser(context.Context, *AddUserReq) (*AddUserResp, error)
 	UserLogin(context.Context, *UserLoginReq) (*UserLoginResp, error)
+	UserUpdateNickName(context.Context, *UserUpdateNickNameReq) (*EmptyResp, error)
+	UserDel(context.Context, *UserDelReq) (*EmptyResp, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -90,6 +114,12 @@ func (UnimplementedUserServer) AddUser(context.Context, *AddUserReq) (*AddUserRe
 }
 func (UnimplementedUserServer) UserLogin(context.Context, *UserLoginReq) (*UserLoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserLogin not implemented")
+}
+func (UnimplementedUserServer) UserUpdateNickName(context.Context, *UserUpdateNickNameReq) (*EmptyResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserUpdateNickName not implemented")
+}
+func (UnimplementedUserServer) UserDel(context.Context, *UserDelReq) (*EmptyResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserDel not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -158,6 +188,42 @@ func _User_UserLogin_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_UserUpdateNickName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserUpdateNickNameReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).UserUpdateNickName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_UserUpdateNickName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).UserUpdateNickName(ctx, req.(*UserUpdateNickNameReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_UserDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserDelReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).UserDel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_UserDel_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).UserDel(ctx, req.(*UserDelReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +242,14 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserLogin",
 			Handler:    _User_UserLogin_Handler,
+		},
+		{
+			MethodName: "UserUpdateNickName",
+			Handler:    _User_UserUpdateNickName_Handler,
+		},
+		{
+			MethodName: "UserDel",
+			Handler:    _User_UserDel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

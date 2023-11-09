@@ -25,8 +25,8 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 
 func (l *AddUserLogic) AddUser(in *user.AddUserReq) (*user.AddUserResp, error) {
 	inres,err := l.svcCtx.BlogUserModel.Insert(l.ctx,&userModel.BlogUser{
-		Username:     "root",
-		Password:     "root",
+		Username:    in.Username,
+		Password: in.Password,
 	})
 	if err != nil {
 		return nil,err

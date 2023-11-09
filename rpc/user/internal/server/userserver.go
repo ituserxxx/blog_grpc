@@ -36,3 +36,13 @@ func (s *UserServer) UserLogin(ctx context.Context, in *user.UserLoginReq) (*use
 	l := logic.NewUserLoginLogic(ctx, s.svcCtx)
 	return l.UserLogin(in)
 }
+
+func (s *UserServer) UserUpdateNickName(ctx context.Context, in *user.UserUpdateNickNameReq) (*user.EmptyResp, error) {
+	l := logic.NewUserUpdateNickNameLogic(ctx, s.svcCtx)
+	return l.UserUpdateNickName(in)
+}
+
+func (s *UserServer) UserDel(ctx context.Context, in *user.UserDelReq) (*user.EmptyResp, error) {
+	l := logic.NewUserDelLogic(ctx, s.svcCtx)
+	return l.UserDel(in)
+}

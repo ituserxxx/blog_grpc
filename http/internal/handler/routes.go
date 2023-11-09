@@ -27,6 +27,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/add",
 				Handler: AddUserHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/del",
+				Handler: DelUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateNickName",
+				Handler: UserUpdateNickNameHandler(serverCtx),
+			},
 		},
 	)
 }

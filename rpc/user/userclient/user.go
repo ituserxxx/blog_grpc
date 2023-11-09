@@ -13,17 +13,22 @@ import (
 )
 
 type (
-	AddUserReq    = user.AddUserReq
-	AddUserResp   = user.AddUserResp
-	Request       = user.Request
-	Response      = user.Response
-	UserLoginReq  = user.UserLoginReq
-	UserLoginResp = user.UserLoginResp
+	AddUserReq            = user.AddUserReq
+	AddUserResp           = user.AddUserResp
+	EmptyResp             = user.EmptyResp
+	Request               = user.Request
+	Response              = user.Response
+	UserDelReq            = user.UserDelReq
+	UserLoginReq          = user.UserLoginReq
+	UserLoginResp         = user.UserLoginResp
+	UserUpdateNickNameReq = user.UserUpdateNickNameReq
 
 	User interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 		AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.CallOption) (*AddUserResp, error)
 		UserLogin(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
+		UserUpdateNickName(ctx context.Context, in *UserUpdateNickNameReq, opts ...grpc.CallOption) (*EmptyResp, error)
+		UserDel(ctx context.Context, in *UserDelReq, opts ...grpc.CallOption) (*EmptyResp, error)
 	}
 
 	defaultUser struct {
@@ -50,4 +55,14 @@ func (m *defaultUser) AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.
 func (m *defaultUser) UserLogin(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.UserLogin(ctx, in, opts...)
+}
+
+func (m *defaultUser) UserUpdateNickName(ctx context.Context, in *UserUpdateNickNameReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.UserUpdateNickName(ctx, in, opts...)
+}
+
+func (m *defaultUser) UserDel(ctx context.Context, in *UserDelReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.UserDel(ctx, in, opts...)
 }

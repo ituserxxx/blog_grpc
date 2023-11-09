@@ -25,10 +25,9 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 }
 
 func (l *AddUserLogic) AddUser(req *types.AddUserReq) (resp *types.AddUserResp, err error) {
-	// todo: add your logic here and delete this line
 	id,err := l.svcCtx.UserRpc.AddUser(l.ctx,&userclient.AddUserReq{
-		Username: "root",
-		Password: "root",
+		Username: req.Username,
+		Password: req.Password,
 	})
 	if err != nil {
 		return nil,err

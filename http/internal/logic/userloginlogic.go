@@ -1,10 +1,10 @@
 package logic
 
 import (
-	"context"
-	"brl/rpc/user/userclient"
-	"brl/http/internal/types"
 	"brl/http/internal/svc"
+	"brl/http/internal/types"
+	"brl/rpc/user/userclient"
+	"context"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -23,7 +23,9 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 }
 
 func (l *UserLoginLogic) UserLogin(ctx context.Context,req *types.LoginReq) (resp *types.LoginResp, err error) {
-	// todo: add your logic here and delete this line
-	l.svcCtx.UserRpc.Ping(ctx,&userclient.Request{})
-	return
+	res, err := l.svcCtx.UserRpc.UserLogin(ctx, &userclient.UserLoginReq{Username: req.Username,Password: req.Password})
+	if err != nil {
+		return nil,err
+	}
+	return &types.LoginResp{Id:res.Id,Username: res.Username},nil
 }

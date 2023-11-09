@@ -15,7 +15,8 @@ type LoginReq struct {
 }
 
 type LoginResp struct {
-	Token string `json:"token"`
+	Id       int64  `json:"id"`
+	Username string `json:"username"`
 }
 
 type AddUserReq struct {
@@ -25,4 +26,23 @@ type AddUserReq struct {
 
 type AddUserResp struct {
 	Id int64 `json:"id"`
+}
+
+type UserUpdateNickNameReq struct {
+	Id       int64  `json:"id"`
+	Nickname string `json:"nickname"`
+}
+
+type UserUpdateNickNameResp struct {
+	Code string `json:"code"`
+	Msg  string `json:"msg"`
+}
+
+type DelUserReq struct {
+	Id int64 `json:"id"`
+}
+
+type DelUserResp struct {
+	Code string `json:"code"`
+	Msg  string `json:"msg"`
 }

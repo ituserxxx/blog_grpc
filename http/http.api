@@ -16,10 +16,9 @@ type (
 	}
 	// 定义登录接口的响应体
 	LoginResp {
-		Token string `json:"token"`
+		Id       int64  `json:"id"`
+		Username string `json:"username"`
 	}
-)
-type (
 
 	AddUserReq {
 		Username string `json:"username"`
@@ -27,6 +26,22 @@ type (
 	}
 	AddUserResp {
 		Id int64 `json:"id"`
+	}
+	UserUpdateNickNameReq {
+		Id       int64  `json:"id"`
+		Nickname string `json:"nickname"`
+	}
+	UserUpdateNickNameResp {
+		Code string `json:"code"`
+		Msg  string `json:"msg"`
+	}
+
+	DelUserReq {
+		Id int64 `json:"id"`
+	}
+	DelUserResp {
+		Code string `json:"code"`
+		Msg  string `json:"msg"`
 	}
 )
 
@@ -40,4 +55,8 @@ service http-api {
 	post /user/login(LoginReq) returns (LoginResp)
 	@handler AddUser
 	post /user/add(AddUserReq) returns (AddUserResp)
+	@handler DelUser
+	post /user/del(DelUserReq) returns (DelUserResp)
+	@handler UserUpdateNickName
+	post /user/UpdateNickName(UserUpdateNickNameReq) returns (UserUpdateNickNameResp)
 }

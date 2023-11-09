@@ -17,8 +17,8 @@ import (
 var (
 	blogUserFieldNames          = builder.RawFieldNames(&BlogUser{})
 	blogUserRows                = strings.Join(blogUserFieldNames, ",")
-	blogUserRowsExpectAutoSet   = strings.Join(stringx.Remove(blogUserFieldNames, "`id`", "`create_time`", "`update_at`", "`updated_at`", "`update_time`", "`create_at`", "`created_at`"), ",")
-	blogUserRowsWithPlaceHolder = strings.Join(stringx.Remove(blogUserFieldNames, "`id`", "`create_time`", "`update_at`", "`updated_at`", "`update_time`", "`create_at`", "`created_at`"), "=?,") + "=?"
+	blogUserRowsExpectAutoSet   = strings.Join(stringx.Remove(blogUserFieldNames, "`id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), ",")
+	blogUserRowsWithPlaceHolder = strings.Join(stringx.Remove(blogUserFieldNames, "`id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), "=?,") + "=?"
 )
 
 type (
