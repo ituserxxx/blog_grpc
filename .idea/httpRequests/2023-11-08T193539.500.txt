@@ -1,1 +1,0 @@
-rpc error: code = Unknown desc = dial tcp: lookup ser_brl_mysql on 127.0.0.53:53: server misbehaving

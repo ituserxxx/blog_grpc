@@ -1,4 +1,0 @@
-string: `{
-  "username":    "68619561969865916986",
-  "password":  "2",
-}`, error: `invalid character '}' looking for beginning of object key string`
