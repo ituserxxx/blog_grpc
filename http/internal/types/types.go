@@ -15,8 +15,11 @@ type LoginReq struct {
 }
 
 type LoginResp struct {
-	Id       int64  `json:"id"`
-	Username string `json:"username"`
+	Id           int64  `json:"id"`
+	Username     string `json:"username"`
+	AccessToken  string `json:"token"`
+	AccessExpire int64  `json:"accessExpire"`
+	RefreshAfter int64  `json:"refreshAfter"`
 }
 
 type AddUserReq struct {
@@ -45,4 +48,27 @@ type DelUserReq struct {
 type DelUserResp struct {
 	Code string `json:"code"`
 	Msg  string `json:"msg"`
+}
+
+type GetUserInfoReq struct {
+	Id int64 `json:"id"`
+}
+
+type GetUserInfoResp struct {
+	Id       int64  `json:"id"`
+	Username string `json:"username"`
+}
+
+type UserListReq struct {
+}
+
+type UserListItem struct {
+	Id       int64  `json:"id"`
+	Username string `json:"username"`
+	Nickname string `json:"nickname"`
+}
+
+type UserListResp struct {
+	Total int64           `json:"total"`
+	List  []*UserListItem `json:"list"`
 }

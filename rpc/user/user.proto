@@ -36,7 +36,25 @@ message EmptyResp {
 message UserDelReq{
   int64 id = 1;
 }
+message UserInfoReq{
+  int64 id =1;
+}
+message UserInfoResp{
+  int64 id = 1;
+  string username=2;
+}
 
+message UserListReq{
+}
+message UserListItem{
+  int64 id = 1;
+  string nickname=2;
+  string username=3;
+}
+message UserListResp{
+  int64 total = 1;
+  repeated  UserListItem list = 2;
+}
 // goctl rpc protoc user.proto --go_out=./ --go-grpc_out=./ --zrpc_out=.
 
 service User {
@@ -45,4 +63,6 @@ service User {
   rpc UserLogin(UserLoginReq) returns(UserLoginResp);
   rpc UserUpdateNickName(UserUpdateNickNameReq) returns(EmptyResp);
   rpc UserDel(UserDelReq) returns(EmptyResp);
+  rpc UserInfo(UserInfoReq) returns(UserInfoResp);
+  rpc UserList(UserListReq) returns(UserListResp);
 }

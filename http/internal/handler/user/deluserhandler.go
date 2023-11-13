@@ -1,24 +1,24 @@
-package handler
+package user
 
 import (
 	"net/http"
-	"brl/http/internal/types"
-	"brl/http/internal/svc"
-	"brl/http/internal/logic"
-	"github.com/zeromicro/go-zero/rest/httpx"
 
+	"brl/http/internal/logic/user"
+	"brl/http/internal/svc"
+	"brl/http/internal/types"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func UserLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func DelUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.LoginReq
+		var req types.DelUserReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewUserLoginLogic(r.Context(), svcCtx)
-		resp, err := l.UserLogin(r.Context(),&req)
+		l := user.NewDelUserLogic(r.Context(), svcCtx)
+		resp, err := l.DelUser(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

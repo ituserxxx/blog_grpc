@@ -1,7 +1,9 @@
 Name: http-api
 Host: 0.0.0.0
 Port: 8888
-
+JwtAuth:
+  AccessSecret: xxxx-3333-jjjj
+  AccessExpire: 604800
 #系统
 UserRpc:
   Etcd:

@@ -1,4 +1,4 @@
-package logic
+package user
 
 import (
 	"brl/rpc/user/userclient"
@@ -25,6 +25,6 @@ func NewDelUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DelUserLo
 }
 
 func (l *DelUserLogic) DelUser(req *types.DelUserReq) (resp *types.DelUserResp, err error) {
-	_,err = l.svcCtx.UserRpc.UserDel(l.ctx,&userclient.UserDelReq{Id: req.Id})
-	return &types.DelUserResp{},nil
+	_, err = l.svcCtx.UserRpc.UserDel(l.ctx, &userclient.UserDelReq{Id: req.Id})
+	return &types.DelUserResp{}, nil
 }

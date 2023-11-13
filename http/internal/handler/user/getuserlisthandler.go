@@ -1,24 +1,24 @@
-package handler
+package user
 
 import (
 	"net/http"
-	"brl/http/internal/logic"
-	"brl/http/internal/types"
+
+	"brl/http/internal/logic/user"
 	"brl/http/internal/svc"
+	"brl/http/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
- 
 )
 
-func HttpHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func GetUserListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.Request
+		var req types.UserListReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewHttpLogic(r.Context(), svcCtx)
-		resp, err := l.Http(&req)
+		l := user.NewGetUserListLogic(r.Context(), svcCtx)
+		resp, err := l.GetUserList(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

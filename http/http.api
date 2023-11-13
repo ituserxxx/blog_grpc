@@ -8,6 +8,7 @@ type Request {
 type Response {
 	Message string `json:"message"`
 }
+
 type (
 	// 定义登录接口的请求体
 	LoginReq {
@@ -16,8 +17,11 @@ type (
 	}
 	// 定义登录接口的响应体
 	LoginResp {
-		Id       int64  `json:"id"`
-		Username string `json:"username"`
+		Id           int64  `json:"id"`
+		Username     string `json:"username"`
+		AccessToken  string `json:"token"`
+		AccessExpire int64  `json:"accessExpire"`
+		RefreshAfter int64  `json:"refreshAfter"`
 	}
 
 	AddUserReq {
@@ -43,20 +47,59 @@ type (
 		Code string `json:"code"`
 		Msg  string `json:"msg"`
 	}
+
+	GetUserInfoReq {
+		Id int64 `json:"id"`
+	}
+	GetUserInfoResp {
+		Id       int64  `json:"id"`
+		Username string `json:"username"`
+	}
+	UserListReq {
+	}
+	UserListItem {
+		Id       int64  `json:"id"`
+		Username string `json:"username"`
+		Nickname string `json:"nickname"`
+	}
+	UserListResp {
+		Total int64           `json:"total"`
+		List  []*UserListItem `json:"list"`
+	}
 )
 
 // goctl api go -api=http.api -dir=./
 
+@server(
+	jwt: JwtAuth
+	group: user
+	prefix: /api/user
+)
 service http-api {
 	@handler HttpHandler
 	get /from/:name(Request) returns (Response)
 	
-	@handler UserLogin
-	post /user/login(LoginReq) returns (LoginResp)
 	@handler AddUser
-	post /user/add(AddUserReq) returns (AddUserResp)
+	post /add(AddUserReq) returns (AddUserResp)
+	
 	@handler DelUser
-	post /user/del(DelUserReq) returns (DelUserResp)
+	post /del(DelUserReq) returns (DelUserResp)
+	
 	@handler UserUpdateNickName
-	post /user/UpdateNickName(UserUpdateNickNameReq) returns (UserUpdateNickNameResp)
+	post /UpdateNickName(UserUpdateNickNameReq) returns (UserUpdateNickNameResp)
+	
+	@handler GetUserInfo
+	post /info(GetUserInfoReq)returns(GetUserInfoResp)
+	
+	@handler GetUserList
+	post /list(UserListReq)returns(UserListResp)
+}
+
+@server(
+	group: user
+	prefix: /api/user
+)
+service http-api {
+	@handler UserLogin
+	post /login(LoginReq) returns (LoginResp)
 }

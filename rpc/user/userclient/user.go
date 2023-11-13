@@ -19,6 +19,11 @@ type (
 	Request               = user.Request
 	Response              = user.Response
 	UserDelReq            = user.UserDelReq
+	UserInfoReq           = user.UserInfoReq
+	UserInfoResp          = user.UserInfoResp
+	UserListItem          = user.UserListItem
+	UserListReq           = user.UserListReq
+	UserListResp          = user.UserListResp
 	UserLoginReq          = user.UserLoginReq
 	UserLoginResp         = user.UserLoginResp
 	UserUpdateNickNameReq = user.UserUpdateNickNameReq
@@ -29,6 +34,8 @@ type (
 		UserLogin(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
 		UserUpdateNickName(ctx context.Context, in *UserUpdateNickNameReq, opts ...grpc.CallOption) (*EmptyResp, error)
 		UserDel(ctx context.Context, in *UserDelReq, opts ...grpc.CallOption) (*EmptyResp, error)
+		UserInfo(ctx context.Context, in *UserInfoReq, opts ...grpc.CallOption) (*UserInfoResp, error)
+		UserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 	}
 
 	defaultUser struct {
@@ -65,4 +72,14 @@ func (m *defaultUser) UserUpdateNickName(ctx context.Context, in *UserUpdateNick
 func (m *defaultUser) UserDel(ctx context.Context, in *UserDelReq, opts ...grpc.CallOption) (*EmptyResp, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.UserDel(ctx, in, opts...)
+}
+
+func (m *defaultUser) UserInfo(ctx context.Context, in *UserInfoReq, opts ...grpc.CallOption) (*UserInfoResp, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.UserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUser) UserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListResp, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.UserList(ctx, in, opts...)
 }

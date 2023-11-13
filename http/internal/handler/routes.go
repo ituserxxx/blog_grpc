@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	user "brl/http/internal/handler/user"
 	"brl/http/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -15,28 +16,46 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodGet,
 				Path:    "/from/:name",
-				Handler: HttpHandler(serverCtx),
+				Handler: user.HttpHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/login",
-				Handler: UserLoginHandler(serverCtx),
+				Path:    "/add",
+				Handler: user.AddUserHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/add",
-				Handler: AddUserHandler(serverCtx),
+				Path:    "/del",
+				Handler: user.DelUserHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/del",
-				Handler: DelUserHandler(serverCtx),
+				Path:    "/UpdateNickName",
+				Handler: user.UserUpdateNickNameHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/UpdateNickName",
-				Handler: UserUpdateNickNameHandler(serverCtx),
+				Path:    "/info",
+				Handler: user.GetUserInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/list",
+				Handler: user.GetUserListHandler(serverCtx),
 			},
 		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/api/user"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/login",
+				Handler: user.UserLoginHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/api/user"),
 	)
 }

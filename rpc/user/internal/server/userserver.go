@@ -46,3 +46,13 @@ func (s *UserServer) UserDel(ctx context.Context, in *user.UserDelReq) (*user.Em
 	l := logic.NewUserDelLogic(ctx, s.svcCtx)
 	return l.UserDel(in)
 }
+
+func (s *UserServer) UserInfo(ctx context.Context, in *user.UserInfoReq) (*user.UserInfoResp, error) {
+	l := logic.NewUserInfoLogic(ctx, s.svcCtx)
+	return l.UserInfo(in)
+}
+
+func (s *UserServer) UserList(ctx context.Context, in *user.UserListReq) (*user.UserListResp, error) {
+	l := logic.NewUserListLogic(ctx, s.svcCtx)
+	return l.UserList(in)
+}

@@ -1,4 +1,4 @@
-package logic
+package user
 
 import (
 	"brl/rpc/user/userclient"
@@ -25,12 +25,12 @@ func NewUserUpdateNickNameLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *UserUpdateNickNameLogic) UserUpdateNickName(req *types.UserUpdateNickNameReq) (resp *types.UserUpdateNickNameResp, err error) {
-	_,err = l.svcCtx.UserRpc.UserUpdateNickName(l.ctx,&userclient.UserUpdateNickNameReq{
-		Id: req.Id,
+	_, err = l.svcCtx.UserRpc.UserUpdateNickName(l.ctx, &userclient.UserUpdateNickNameReq{
+		Id:       req.Id,
 		Nickname: req.Nickname,
 	})
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-	return &types.UserUpdateNickNameResp{},nil
+	return &types.UserUpdateNickNameResp{}, nil
 }

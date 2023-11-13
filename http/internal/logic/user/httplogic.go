@@ -1,4 +1,4 @@
-package logic
+package user
 
 import (
 	"brl/rpc/user/userclient"
@@ -6,6 +6,7 @@ import (
 
 	"brl/http/internal/svc"
 	"brl/http/internal/types"
+
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,9 +25,9 @@ func NewHttpLogic(ctx context.Context, svcCtx *svc.ServiceContext) *HttpLogic {
 }
 
 func (l *HttpLogic) Http(req *types.Request) (resp *types.Response, err error) {
-	res, err :=l.svcCtx.UserRpc.Ping(l.ctx,&userclient.Request{})
+	res, err := l.svcCtx.UserRpc.Ping(l.ctx, &userclient.Request{})
 	if err != nil {
 		return nil, err
 	}
-	return &types.Response{Message: res.Pong},nil
+	return &types.Response{Message: res.Pong}, nil
 }
