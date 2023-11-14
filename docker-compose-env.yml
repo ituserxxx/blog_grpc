@@ -4,6 +4,7 @@ version: '3'
 ######## The environment that the project depends on, starting this environment before starting the project #######
 
 services:
+  # mysql
   ser_brl_mysql:
     image: mysql/mysql-server:8.0.28
     container_name: brl_mysql
@@ -32,7 +33,7 @@ services:
     restart: always
     networks:
       - blog_rpc_net
-
+  # phpmyadmin
   ser_brl_phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: brl_phpmyadmin
@@ -67,7 +68,7 @@ services:
     restart: always
     networks:
       - blog_rpc_net
-
+  # etcd容器
   ser_brl_etcd:
     image: quay.io/coreos/etcd:v3.5.0
     container_name: brl_etcd
@@ -79,7 +80,7 @@ services:
       - ./data/etcd:/etcd-data
     networks:
       - blog_rpc_net
-
+  # etcdkeeper容器
   ser_brl_etcdkeeper:
     image: deltaprojects/etcdkeeper
     container_name: brl_etcdkeeper
@@ -91,6 +92,28 @@ services:
       - ser_brl_etcd 
     networks:
       - blog_rpc_net
+
+
+  #prometheus监控 — Prometheus for monitoring
+  ser_brl_prometheus:
+    image: prom/prometheus:v2.28.1
+    container_name: brl_prometheus
+    environment:
+      # 时区上海 - Time zone Shanghai (Change if needed)
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/prometheus/data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    restart: always
+    user: root
+    ports:
+      - 9090:9090
+    networks:
+      - blog_rpc_net
 networks:
   blog_rpc_net:
     driver: bridge
+

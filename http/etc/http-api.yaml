@@ -10,3 +10,15 @@ UserRpc:
     Hosts:
       - localhost:2379
     Key: user.rpc
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9091
+  Path: /metrics
+
+#链路追踪 todo
+#Telemetry:
+#  Name: http-api
+#  Endpoint: http://jaeger:14268/api/traces
+#  Sampler: 1.0
+#  Batcher: jaeger
