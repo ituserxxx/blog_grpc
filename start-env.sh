@@ -7,13 +7,13 @@ mkdir -p ./data/etcd/data
 
 docker compose -f docker-compose-env.yml start
 docker compose -f docker-compose-env.yml stop
-docker compose -f docker-compose-env.yml rm
+
 docker compose -f docker-compose-env.yml up -d
 
 
 
 
-
+#docker compose -f docker-compose-env.yml rm
 
 
 # docker exec -it brl_mysql /bin/sh
