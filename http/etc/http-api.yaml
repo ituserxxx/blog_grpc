@@ -1,30 +1,28 @@
 Name: http-api
-Host: 0.0.0.0
+Host: localhost
 Port: 8888
 JwtAuth:
   AccessSecret: xxxx-3333-jjjj
-  AccessExpire: 604800
+  AccessExpire: 100
 UserRpc:
   Etcd:
     Hosts:
       - localhost:2379
     Key: user.rpc
-
 Redis:
-  Host: brl_redis:6379
+  Host: localhost:36371
   Type: node
   Pass: G62m50oigInC30sf
   Key: http-api
 Cache:
-  - Host: brl_redis:6379
+  - Host: localhost:36371
     Pass: G62m50oigInC30sf
 Prometheus:
-  Host: 0.0.0.0
+  Host: localhost
   Port: 9091
   Path: /metrics
-
 Telemetry:
   Name: http-api
-  Endpoint: http://jaeger:14268/api/traces
+  Endpoint: http://localhost:14268/api/traces
   Sampler: 1.0
   Batcher: jaeger
