@@ -17,6 +17,10 @@ cd rpc
 goctl model mysql  ddl --src ./mysql/sql/blog_user.sql --dir ./mysql/model/user
 
 
+genate dockerfile
 
+cd http
+goctl docker --go http.go --exe httpapi
+docker build -t httpapi:v1 .
 
 
