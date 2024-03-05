@@ -30,14 +30,13 @@ services:
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
     privileged: true
-    restart: always
-    networks:
-      - blog_rpc_net
+    restart: on-failure
+
   # phpmyadmin
   ser_brl_phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: brl_phpmyadmin
-    restart: always
+    restart: on-failure
     environment:
       - PMA_ARBITRARY=0
       - MYSQL_USER=root
@@ -46,8 +45,6 @@ services:
       - PMA_HOST=ser_brl_mysql
     ports:
       - 33062:80
-    networks:
-      - blog_rpc_net
     depends_on:
       - ser_brl_mysql 
       
@@ -65,9 +62,8 @@ services:
       - ./data/redis/data:/data:rw
     command: "redis-server --requirepass G62m50oigInC30sf  --appendonly yes"
     privileged: true
-    restart: always
-    networks:
-      - blog_rpc_net
+    restart: on-failure
+
   # etcd容器
   ser_brl_etcd:
     image: quay.io/coreos/etcd:v3.5.0
@@ -78,8 +74,7 @@ services:
       - 2380:2380
     volumes:
       - ./data/etcd:/etcd-data
-    networks:
-      - blog_rpc_net
+
   # etcdkeeper容器
   ser_brl_etcdkeeper:
     image: deltaprojects/etcdkeeper
@@ -90,8 +85,6 @@ services:
       - ETCD_SERVER=http://brl_etcd:2379
     depends_on:
       - ser_brl_etcd 
-    networks:
-      - blog_rpc_net
 
   #prometheus监控 — Prometheus for monitoring
   ser_brl_prometheus:
@@ -106,17 +99,16 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-    restart: always
+    restart: on-failure
     user: root
     ports:
       - 9090:9090
-    networks:
-      - blog_rpc_net
+
   #jaeger链路追踪 — Jaeger for tracing
   ser_brl_jaeger:
     image: jaegertracing/all-in-one:1.5
     container_name: brl_jaeger
-    restart: always
+    restart: on-failure
     ports:
       - "5775:5775/udp"
       - "6831:6831/udp"
@@ -129,9 +121,13 @@ services:
 #      - SPAN_STORAGE_TYPE=elasticsearch
 #      - ES_SERVER_URLS=http://elasticsearch:9200
       - LOG_LEVEL=debug
-    networks:
-      - blog_rpc_net
-networks:
-  blog_rpc_net:
-    driver: bridge
-
+  ser_meilisearch:
+    image: getmeili/meilisearch:v1.5
+    container_name: brl_meilisearch
+    restart: on-failure
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_MASTER_KEY=RWzzZQj1UWqKQLmOaP7HleQIWaRAc8HA-LjpBNfJCAo
+    volumes:
+      - ./data/meili_data:/meili_data

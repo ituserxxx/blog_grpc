@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"brl/rpc/tag/internal/svc"
-	"brl/rpc/tag/tag"
+	"brl/rpc/article/article"
+	"brl/rpc/article/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -23,8 +23,8 @@ func NewPingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PingLogic {
 	}
 }
 
-func (l *PingLogic) Ping(in *tag.Request) (*tag.Response, error) {
+func (l *PingLogic) Ping(in *article.Request) (*article.Response, error) {
 	// todo: add your logic here and delete this line
 
-	return &tag.Response{}, nil
+	return &article.Response{}, nil
 }

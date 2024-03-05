@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package tag;
-option go_package="./tag";
+package article;
+option go_package="./article";
 
 message Request {
   string ping = 1;
@@ -11,6 +11,6 @@ message Response {
   string pong = 1;
 }
 
-service Tag {
+service Article {
   rpc Ping(Request) returns(Response);
 }

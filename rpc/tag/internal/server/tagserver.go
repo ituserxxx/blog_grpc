@@ -6,9 +6,9 @@ package server
 import (
 	"context"
 
-	"tag/internal/logic"
-	"tag/internal/svc"
-	"tag/tag"
+	"brl/rpc/tag/internal/logic"
+	"brl/rpc/tag/internal/svc"
+	"brl/rpc/tag/tag"
 )
 
 type TagServer struct {

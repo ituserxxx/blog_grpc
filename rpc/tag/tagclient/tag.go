@@ -6,7 +6,7 @@ package tagclient
 import (
 	"context"
 
-	"tag/tag"
+	"brl/rpc/tag/tag"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
