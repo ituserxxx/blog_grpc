@@ -13,11 +13,12 @@ import (
 )
 
 type (
-	Request  = article.Request
-	Response = article.Response
+	ListItem = article.ListItem
+	ListReq  = article.ListReq
+	ListResp = article.ListResp
 
 	Article interface {
-		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+		List(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListResp, error)
 	}
 
 	defaultArticle struct {
@@ -31,7 +32,7 @@ func NewArticle(cli zrpc.Client) Article {
 	}
 }
 
-func (m *defaultArticle) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (m *defaultArticle) List(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListResp, error) {
 	client := article.NewArticleClient(m.cli.Conn())
-	return client.Ping(ctx, in, opts...)
+	return client.List(ctx, in, opts...)
 }

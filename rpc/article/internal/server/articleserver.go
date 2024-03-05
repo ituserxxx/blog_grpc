@@ -22,7 +22,7 @@ func NewArticleServer(svcCtx *svc.ServiceContext) *ArticleServer {
 	}
 }
 
-func (s *ArticleServer) Ping(ctx context.Context, in *article.Request) (*article.Response, error) {
-	l := logic.NewPingLogic(ctx, s.svcCtx)
-	return l.Ping(in)
+func (s *ArticleServer) List(ctx context.Context, in *article.ListReq) (*article.ListResp, error) {
+	l := logic.NewListLogic(ctx, s.svcCtx)
+	return l.List(in)
 }

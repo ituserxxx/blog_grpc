@@ -4,3 +4,22 @@ Etcd:
   Hosts:
   - 127.0.0.1:2379
   Key: article.rpc
+Mysql:
+  Datasource: db_blog_user:db_blog_pass@tcp(localhost:33061)/gin_vue_blog?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+Redis:
+  Host: localhost:36371
+  Type: node
+  Pass: G62m50oigInC30sf
+  Key: user-rpc
+Cache:
+  - Host: localhost:36371
+    Pass: G62m50oigInC30sf
+Prometheus:
+  Host: localhost
+  Port: 9092
+  Path: /metrics
+Telemetry:
+  Name: user-rpc
+  Endpoint: http://localhost:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

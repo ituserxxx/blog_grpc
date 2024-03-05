@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Article_Ping_FullMethodName = "/article.Article/Ping"
+	Article_List_FullMethodName = "/article.Article/List"
 )
 
 // ArticleClient is the client API for Article service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ArticleClient interface {
-	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	List(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListResp, error)
 }
 
 type articleClient struct {
@@ -37,9 +37,9 @@ func NewArticleClient(cc grpc.ClientConnInterface) ArticleClient {
 	return &articleClient{cc}
 }
 
-func (c *articleClient) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
-	err := c.cc.Invoke(ctx, Article_Ping_FullMethodName, in, out, opts...)
+func (c *articleClient) List(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListResp, error) {
+	out := new(ListResp)
+	err := c.cc.Invoke(ctx, Article_List_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *articleClient) Ping(ctx context.Context, in *Request, opts ...grpc.Call
 // All implementations must embed UnimplementedArticleServer
 // for forward compatibility
 type ArticleServer interface {
-	Ping(context.Context, *Request) (*Response, error)
+	List(context.Context, *ListReq) (*ListResp, error)
 	mustEmbedUnimplementedArticleServer()
 }
 
@@ -58,8 +58,8 @@ type ArticleServer interface {
 type UnimplementedArticleServer struct {
 }
 
-func (UnimplementedArticleServer) Ping(context.Context, *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
+func (UnimplementedArticleServer) List(context.Context, *ListReq) (*ListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 func (UnimplementedArticleServer) mustEmbedUnimplementedArticleServer() {}
 
@@ -74,20 +74,20 @@ func RegisterArticleServer(s grpc.ServiceRegistrar, srv ArticleServer) {
 	s.RegisterService(&Article_ServiceDesc, srv)
 }
 
-func _Article_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+func _Article_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ArticleServer).Ping(ctx, in)
+		return srv.(ArticleServer).List(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Article_Ping_FullMethodName,
+		FullMethod: Article_List_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ArticleServer).Ping(ctx, req.(*Request))
+		return srv.(ArticleServer).List(ctx, req.(*ListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -100,8 +100,8 @@ var Article_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ArticleServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Ping",
-			Handler:    _Article_Ping_Handler,
+			MethodName: "List",
+			Handler:    _Article_List_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

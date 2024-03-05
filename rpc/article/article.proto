@@ -3,14 +3,22 @@ syntax = "proto3";
 package article;
 option go_package="./article";
 
-message Request {
-  string ping = 1;
+message ListReq {
+  string page = 1;
 }
-
-message Response {
-  string pong = 1;
+message ListItem{
+  int64   id=1;
+  string  title=2;
+  string  content=3;
+  string  create_time=4;
+  string  update_time=5;
+  int64   status=6;
+}
+message ListResp {
+    int64 total = 1;
+    repeated  ListItem article_list = 2;
 }
 
 service Article {
-  rpc Ping(Request) returns(Response);
+  rpc List(ListReq) returns(ListResp);
 }
