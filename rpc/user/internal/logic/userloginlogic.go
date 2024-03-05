@@ -25,18 +25,18 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 }
 
 func (l *UserLoginLogic) UserLogin(in *user.UserLoginReq) (*user.UserLoginResp, error) {
-	uInfo,err := l.svcCtx.BlogUserModel.FindOneByUsername(l.ctx,in.Username)
+	uInfo, err := l.svcCtx.ModelUser.FindOneByUsername(l.ctx, in.Username)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	if uInfo == nil {
-		return nil,errors.New("no User")
+		return nil, errors.New("no User")
 	}
 	if uInfo.Password != in.Password {
 		return nil, errors.New("not password")
 	}
 	return &user.UserLoginResp{
-		Id: uInfo.Id,
+		Id:       uInfo.Id,
 		Username: uInfo.Username,
 	}, nil
 }

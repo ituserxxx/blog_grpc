@@ -23,7 +23,7 @@ func NewUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserList
 
 func (l *UserListLogic) UserList(in *user.UserListReq) (*user.UserListResp, error) {
 
-	ls, err := l.svcCtx.BlogUserModel.List(l.ctx, 1, 10)
+	ls, err := l.svcCtx.ModelUser.List(l.ctx, 1, 10)
 	if err != nil {
 		return nil, err
 	}

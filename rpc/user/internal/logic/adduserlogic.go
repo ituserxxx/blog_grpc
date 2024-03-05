@@ -24,16 +24,16 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 }
 
 func (l *AddUserLogic) AddUser(in *user.AddUserReq) (*user.AddUserResp, error) {
-	inres,err := l.svcCtx.BlogUserModel.Insert(l.ctx,&userModel.BlogUser{
-		Username:    in.Username,
+	inres, err := l.svcCtx.ModelUser.Insert(l.ctx, &userModel.BlogUser{
+		Username: in.Username,
 		Password: in.Password,
 	})
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-	id,err := inres.LastInsertId()
+	id, err := inres.LastInsertId()
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	return &user.AddUserResp{
 		Id: id,

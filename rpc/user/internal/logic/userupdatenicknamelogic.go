@@ -26,9 +26,9 @@ func NewUserUpdateNickNameLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *UserUpdateNickNameLogic) UserUpdateNickName(in *user.UserUpdateNickNameReq) (*user.EmptyResp, error) {
-	err := l.svcCtx.BlogUserModel.Update(l.ctx,&userModel.BlogUser{
-		Id:           in.Id,
-		Nickname:   sql.NullString{String: in.Nickname,Valid: true},
+	err := l.svcCtx.ModelUser.Update(l.ctx, &userModel.BlogUser{
+		Id:       in.Id,
+		Nickname: sql.NullString{String: in.Nickname, Valid: true},
 	})
 	if err != nil {
 		return nil, err

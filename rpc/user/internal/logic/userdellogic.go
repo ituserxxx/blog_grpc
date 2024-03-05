@@ -24,7 +24,7 @@ func NewUserDelLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserDelLo
 }
 
 func (l *UserDelLogic) UserDel(in *user.UserDelReq) (*user.EmptyResp, error) {
-	err := l.svcCtx.BlogUserModel.Delete(l.ctx,in.Id)
+	err := l.svcCtx.ModelUser.Delete(l.ctx, in.Id)
 	if err != nil {
 		return nil, err
 	}

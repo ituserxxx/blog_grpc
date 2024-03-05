@@ -25,7 +25,7 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 }
 
 func (l *UserInfoLogic) UserInfo(in *user.UserInfoReq) (*user.UserInfoResp, error) {
-	uInfo, err := l.svcCtx.BlogUserModel.FindOne(l.ctx, in.Id)
+	uInfo, err := l.svcCtx.ModelUser.FindOne(l.ctx, in.Id)
 	if err != nil {
 		return nil, err
 	}
